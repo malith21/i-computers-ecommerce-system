@@ -43,3 +43,13 @@ export default function authenticateUser(req,res,next){
         }
  
 }
+//testing token
+// const token = jwt.sign(
+//     {
+//         id:"12345",
+//         name:"John Doe",
+//         email:"john.doe@example.com"
+//     },
+//     "I-computers10Batch",
+//     { expiresIn: "1h" }
+// );
