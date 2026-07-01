@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import HomePage from './pages/homePage'
 import AdminPage from './pages/adminPage'
 import TrendingProducts from './components/TrendingProducts'
+import TestPage from './pages/test'
 
 function App() {
   
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/admin/*" element={<AdminPage />} />
+        <Route path="/test" element={<TestPage />} />
       </Routes>
     </div>
 
