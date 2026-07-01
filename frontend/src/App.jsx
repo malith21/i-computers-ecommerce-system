@@ -8,11 +8,10 @@ function App() {
   
 
   return (
-    <div classname='w-full h-screen border-[6px] flex justify-center items-center'>
+    <div className='w-full h-screen flex justify-center items-center bg-primary text-secondary'>
       <Routes>
         <Route path="/" element={<HomePage />} />
-
-        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/*" element={<AdminPage />} />
       </Routes>
     </div>
 
