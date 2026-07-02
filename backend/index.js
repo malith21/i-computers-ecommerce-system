@@ -5,10 +5,16 @@ import mongoose from "mongoose";
 import userRouter from "./routers/userRouter.js";
 import authenticateUser from "./middlewares/authentication.js";
 import productRouter from "./routers/productRouter.js";
+import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
-mongoose.connect("mongodb://localhost:27017/icomputers")
+const mongodbURI = process.env.MONGO_URI;
+
+mongoose.connect(mongodbURI)
 .then(() => {
     console.log("✅ MongoDB Connected");
 })
@@ -16,13 +22,15 @@ mongoose.connect("mongodb://localhost:27017/icomputers")
     console.log("❌ MongoDB Error:", err.message);
 });
 
+app.use(cors());
+
 app.use(express.json());
 
 app.use(authenticateUser);
 
 
-app.use("/users", userRouter);
-app.use("/products", productRouter);
+app.use("/api/users", userRouter);
+app.use("/api/products", productRouter);
 
 app.listen(3000, () => {
     console.log("🚀 Server is running on port 3000");

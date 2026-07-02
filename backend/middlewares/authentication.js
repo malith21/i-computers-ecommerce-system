@@ -1,4 +1,6 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv"
+dotenv.config();
 
 export default function authenticateUser(req,res,next){
         
@@ -13,7 +15,7 @@ export default function authenticateUser(req,res,next){
 
              jwt.verify(
                 token,
-                "I-computers10Batch",
+                process.env.JWT_SECRET,
                 (error, decoded)=>{
 
                     console.log(decoded) //decripted details of user

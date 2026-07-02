@@ -1,6 +1,8 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
+dotenv.config();
 
 export async function createUser(req , res){  
 
@@ -58,12 +60,13 @@ export async function loginUser(req,res){
                     image : user.image
                 }
 
-                const token = jwt.sign(payeload,"I-computers10Batch",{
+                const token = jwt.sign(payeload, process.env.JWT_SECRET, {
                     expiresIn : "48h"
                 })
                 
                 res.json({
-                    token : token
+                    token : token,
+                    isAdmin : user.isAdmin
                 })  
 
             }else{
