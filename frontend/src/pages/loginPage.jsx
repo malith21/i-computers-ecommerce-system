@@ -2,9 +2,13 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+
 export default function LoginPage(){
+
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     function handleLogin(){
         console.log("Email:", email);
@@ -15,10 +19,33 @@ export default function LoginPage(){
              email : email,
             password : password 
         }).then((response) => {
-            console.log("Login successful:", response.data);
             
+            console.log(response.data);
+
+            // Store the token in localStorage
+            if(response.data.token){
+                localStorage.setItem("token", response.data.token);
+                toast.success("Login successful!");
+            } else {
+                toast.error(response.data.message);
+                return;
+            }
+
+            // Redirect based on user role
+            if(response.data.isAdmin){
+                // Redirect to admin dashboard
+                //window.location.href = "/admin";
+                navigate("/admin");
+            }else{
+                // Redirect to user homepage
+                //window.location.href = "/";
+                navigate("/");
+            }
+            
+        
         }).catch((error) => {
-            console.error("Login failed:", error);
+           //alert(error.response.data.message);
+           toast.error(error.response.data.message);
         });
     }
 
