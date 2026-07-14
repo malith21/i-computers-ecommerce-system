@@ -27,8 +27,11 @@ export default function uploadMedia(file){
 
                     
 
-                    const publicUrl = supabase.storage.from("images").getPublicUrl(fileName);
-                    resolve(publicUrl);
+                    const publicUrl = supabase.storage
+                        .from("images")
+                        .getPublicUrl(fileName);
+
+                    resolve(publicUrl.data.publicUrl);
 
                 }).catch((error)=>{
                     
